@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
+import com.xiaochun.tao.api.enums.RespCodeEnum;
 import com.xiaochun.tao.api.exception.KeywordNotFoundException;
 import com.xiaochun.tao.api.req.UserLoginRequest;
 import com.xiaochun.tao.api.res.CommonResponse;
-import com.xiaochun.tao.api.res.RespCodeEnum;
 import com.xiaochun.tao.api.res.UserLoginResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/login")	
 //	public UserLoginResponse login(@RequestBody UserLoginRequest request) {		
-	public UserLoginResponse login(@RequestParam(value = "language") String lang, @RequestParam(value = "data", required = true) String data) {		
+	public UserLoginResponse login(@RequestParam(value="language",required=false,defaultValue="JP") String lang, @RequestParam(value="data", required=true) String data) {		
 		
 		UserLoginRequest request = JSONObject.parseObject(data, UserLoginRequest.class);
 		log.debug("Login : {}", request);
@@ -50,6 +51,7 @@ public class UserController {
 	}
 	
 	@ExceptionHandler(KeywordNotFoundException.class)
+	@ResponseStatus(value=HttpStatus.BAD_REQUEST)
     public CommonResponse myError(HttpServletRequest request, Exception exception) {
 	  CommonResponse error = new CommonResponse();
         error.setRespCode(""+HttpStatus.BAD_REQUEST.value());

@@ -1,5 +1,8 @@
 package com.xiaochun.tao.api.res;
 
+import com.xiaochun.tao.api.enums.LangEnum;
+import com.xiaochun.tao.api.enums.RespCodeEnum;
+
 import lombok.Data;
 
 @Data

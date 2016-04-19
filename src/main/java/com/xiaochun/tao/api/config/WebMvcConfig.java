@@ -22,8 +22,8 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.xiaochun.tao.api.web.ExecuteTimeInterceptor;
-import com.xiaochun.tao.api.web.SecurityInterceptor;
+import com.xiaochun.tao.api.web.interceptor.ExecuteTimeInterceptor;
+import com.xiaochun.tao.api.web.interceptor.SecurityInterceptor;
 
 /**
  * @author dly
