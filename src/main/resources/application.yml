@@ -14,7 +14,7 @@ multipart:
   
 # escape --> :, {, }, [, ], ,, &, *, #, ?, |, -, <, >, =, !, %, @, ` 
 api:
-  paths.uploadedFiles: /tmp/upload 
+  upload.path: /tmp/upload 
   secretKey: '[5)JL\">jTD$B+!mP`tM|eS^E-_#03gHa?v{nC<wq'
-  skipSign: false
+  skipSign: true
   

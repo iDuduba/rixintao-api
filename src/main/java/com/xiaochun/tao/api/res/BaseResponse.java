@@ -7,8 +7,8 @@ import lombok.Data;
 
 @Data
 public abstract class BaseResponse {
-	private String respCode;
-	private String respMsg;
+	protected String respCode;
+	protected String respMsg;
 	
 	public void setResponse(RespCodeEnum resp) {
 		respCode = resp.getCode();
