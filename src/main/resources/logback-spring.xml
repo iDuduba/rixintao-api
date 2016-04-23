@@ -2,6 +2,6 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml" />
 
-    <logger name="com.xiaochun.tao" level="DEBUG" />
+    <logger name="com.jtrips.tao" level="DEBUG" />
 
 </configuration>
