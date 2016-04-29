@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.jtrips.tao.api.enums.RespCodeEnum;
@@ -18,6 +20,7 @@ import com.jtrips.tao.api.exception.KeywordNotFoundException;
 import com.jtrips.tao.api.req.UserLoginRequest;
 import com.jtrips.tao.api.res.CommonResponse;
 import com.jtrips.tao.api.res.UserLoginResponse;
+import com.jtrips.tao.service.HelloService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +29,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/users")
 public class UserController extends BaseController {
 	
+    
+//  @Autowired
+  @Reference(version = "1.0")
+  private HelloService helloService;
+  
 	/* @PathVariable("userId") int user
 	 * @RequestParam(value = "data", required = true) UserLoginRequest request
 	 * @RequestBody UserLoginRequest request
@@ -46,6 +54,11 @@ public class UserController extends BaseController {
 		response.setResponse(RespCodeEnum.SUCCESS);
 		response.setUserId(UUID.randomUUID().toString());
 		return response;
+	}
+	
+	@RequestMapping(value = "/hello")
+	public String hello(@RequestParam(value="name",required=false,defaultValue="tom") String name) {
+	  return helloService.sayHello(name);
 	}
 	
 	@ExceptionHandler(KeywordNotFoundException.class)

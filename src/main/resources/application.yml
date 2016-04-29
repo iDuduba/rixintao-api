@@ -7,6 +7,27 @@ spring:
     encoding.charset: UTF-8  
     encoding.enable: true  
     encoding.force: true        
+  dubbo:  
+    basePackages: com.jtrips.tao.api.web
+    application:
+      owner: prosysoft
+      name: tao-openapi
+      logger: slf4j
+    registry:
+      address: zookeeper://127.0.0.1:2181
+      #address: multicast://224.5.6.7:1234
+      register: true
+      subscribe: true
+    monitor.protocol: registry
+    protocol:
+      name: dubbo
+      port: 20880
+      accessLog: true
+    service.loadbalance: roundrobin
+    provider:
+      timeout: 300
+      retries: 1
+      delay: -1
 
 multipart:
   maxFileSize: 3Mb  # Set the file size limit (default 1Mb). If you want to specify that files be unlimited set the multipart.maxFileSize property to -1.
@@ -17,4 +38,5 @@ api:
   upload.path: /tmp/upload 
   secretKey: '[5)JL\">jTD$B+!mP`tM|eS^E-_#03gHa?v{nC<wq'
   skipSign: true
+
   
