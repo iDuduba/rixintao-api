@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -65,6 +68,8 @@ public class UserController extends BaseController {
 		return response;
 	}
 	
+	DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+	
 	@RequestMapping(value = "/hello")
 	public HelloResponse hello(@RequestParam(value="name",required=false,defaultValue="tom") String name) {
       if(name.compareTo("yyy") == 0) {
@@ -78,10 +83,12 @@ public class UserController extends BaseController {
       response.add("staticContextPath", staticPath);
       response.add("yes", helloService.sayHello(name));
       response.add("warnning", "不要骚扰我！");
+      response.add("startTime", fmt.print(DateTime.now()));
       response.translate(LangEnum.CN);
 	  return response;
 	}
 	
+	/*
 	@ExceptionHandler(KeywordNotFoundException.class)
 	@ResponseStatus(value=HttpStatus.BAD_REQUEST)
     public CommonResponse myError(HttpServletRequest request, KeywordNotFoundException exception) {
@@ -90,4 +97,5 @@ public class UserController extends BaseController {
         error.setRespMsg(exception.getLocalizedMessage());
         return error;
     }
+    */
 }

@@ -3,6 +3,8 @@ package com.jtrips.tao.api.enums;
 public enum RespCodeEnum {
 
 	SUCCESS("0000", "成功"),	
+    UPLOAD_EERROR("5000", "上传文件错误"),  
+    UPLOAD_EXCEED("5001", "上传文件大小超过限制"),  
 	FAIL("9999","系统内部异常,请稍候再试."),
 	MD5_ERROR("9998","请求参数非法.");
 	
