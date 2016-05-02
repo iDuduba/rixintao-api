@@ -30,9 +30,8 @@ public class ApiExceptionHandlerAdvice {
 	@ResponseBody
 	public CommonResponse exception(Exception ex, WebRequest request) {	
 	    log.error(Throwables.getRootCause(ex).getMessage());
-		CommonResponse error = new CommonResponse();
+		CommonResponse error = new CommonResponse(CodeEnum.FAIL);
 		
-      	  error.setResponse(CodeEnum.FAIL);
 //      	  error.setRespMsg(Throwables.getRootCause(exception).getMessage());
 
 		return error;
@@ -46,9 +45,8 @@ public class ApiExceptionHandlerAdvice {
             final HttpServletResponse response, final Throwable e)
             throws IOException {
         log.warn(">> {}", e.getLocalizedMessage());
-        CommonResponse error = new CommonResponse();
-        error.setResponse(CodeEnum.UPLOAD_EXCEED);
-        return error;
+        
+        return new CommonResponse(CodeEnum.UPLOAD_EXCEED);
     }
  
     @ExceptionHandler(value = MultipartException.class)
