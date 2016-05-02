@@ -11,7 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Objects;
-import com.jtrips.tao.api.enums.RespCodeEnum;
+import com.jtrips.tao.api.enums.CodeEnum;
 import com.jtrips.tao.api.res.BaseResponse;
 import com.jtrips.tao.api.res.CommonResponse;
 
@@ -43,8 +43,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
 			if (!Objects.equal(md5, sign)) {
 				CommonResponse comResponse = new CommonResponse();
-				comResponse.setRespCode(RespCodeEnum.MD5_ERROR.getCode());
-				comResponse.setRespMsg(RespCodeEnum.MD5_ERROR.getMsg());
+				comResponse.setRespCode(CodeEnum.MD5_ERROR.getCode());
+				comResponse.setRespMsg(CodeEnum.MD5_ERROR.getMsg());
 
 				log.error("签名错误->Client:{},Server:{}", sign, md5);
 

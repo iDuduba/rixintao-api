@@ -1,6 +1,6 @@
 package com.jtrips.tao.api.enums;
 
-public enum RespCodeEnum {
+public enum CodeEnum {
 
 	SUCCESS("0000", "成功"),	
     UPLOAD_EERROR("5000", "上传文件错误"),  
@@ -11,7 +11,7 @@ public enum RespCodeEnum {
 	private String code;
 	private String msg;
 	
-	RespCodeEnum(String code, String msg) {
+	CodeEnum(String code, String msg) {
 		this.code = code;
 		this.msg = msg;
 	}

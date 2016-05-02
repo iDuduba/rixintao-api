@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 
 import com.google.common.base.Throwables;
-import com.jtrips.tao.api.enums.RespCodeEnum;
+import com.jtrips.tao.api.enums.CodeEnum;
 import com.jtrips.tao.api.res.CommonResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class ApiExceptionHandlerAdvice {
 	    log.error(Throwables.getRootCause(ex).getMessage());
 		CommonResponse error = new CommonResponse();
 		
-      	  error.setResponse(RespCodeEnum.FAIL);
+      	  error.setResponse(CodeEnum.FAIL);
 //      	  error.setRespMsg(Throwables.getRootCause(exception).getMessage());
 
 		return error;
@@ -47,7 +47,7 @@ public class ApiExceptionHandlerAdvice {
             throws IOException {
         log.warn(">> {}", e.getLocalizedMessage());
         CommonResponse error = new CommonResponse();
-        error.setResponse(RespCodeEnum.UPLOAD_EXCEED);
+        error.setResponse(CodeEnum.UPLOAD_EXCEED);
         return error;
     }
  
@@ -64,7 +64,7 @@ public class ApiExceptionHandlerAdvice {
             cause = cause.getCause();
         }
         CommonResponse error = new CommonResponse();
-        error.setResponse(RespCodeEnum.UPLOAD_EERROR);
+        error.setResponse(CodeEnum.UPLOAD_EERROR);
         error.setRespMsg(rootCause.getLocalizedMessage());
         return error;
     }

@@ -35,6 +35,7 @@ multipart:
   maxRequestSize: 10Mb  # Set the total request size for a multipart/form-data (default 10Mb)
   fileSizeThreshold: -1
   location: /tmp/upload
+  resolveLazily: true
   
 # escape --> :, {, }, [, ], ,, &, *, #, ?, |, -, <, >, =, !, %, @, ` 
 api:

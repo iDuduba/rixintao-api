@@ -34,6 +34,9 @@ public class UploadConfiguration {
   @Value("${multipart.location}")
   private String uploadTempDir;
 
+  @Value("${multipart.resolveLazily: false}")
+  private boolean resolveLazily;
+
   @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
   public CommonsMultipartResolver multipartResolver() {
       final CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
@@ -47,7 +50,7 @@ public class UploadConfiguration {
       commonsMultipartResolver.setMaxUploadSize(parseSize(uploadMaxFileSize));
       commonsMultipartResolver.setMaxInMemorySize(maxInMemorySize);
       commonsMultipartResolver.setDefaultEncoding("utf-8");
-      commonsMultipartResolver.setResolveLazily(true);
+      commonsMultipartResolver.setResolveLazily(resolveLazily);
       return commonsMultipartResolver;
   }
  

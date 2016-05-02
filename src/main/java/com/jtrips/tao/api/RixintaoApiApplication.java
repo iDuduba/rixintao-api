@@ -1,7 +1,6 @@
 package com.jtrips.tao.api;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration;
 import org.springframework.context.ApplicationListener;
@@ -12,8 +11,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@SpringBootApplication
-@EnableAutoConfiguration(exclude={MultipartAutoConfiguration.class})
+@SpringBootApplication(exclude={MultipartAutoConfiguration.class})
 //@ImportResource (value={"dubbo-consumer.xml"})
 public class RixintaoApiApplication {
 

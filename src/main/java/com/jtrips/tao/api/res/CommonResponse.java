@@ -1,7 +1,7 @@
 package com.jtrips.tao.api.res;
 
 import com.jtrips.tao.api.enums.LangEnum;
-import com.jtrips.tao.api.enums.RespCodeEnum;
+import com.jtrips.tao.api.enums.CodeEnum;
 
 import lombok.Data;
 
@@ -9,10 +9,10 @@ import lombok.Data;
 public class CommonResponse extends BaseResponse {
 
 	public CommonResponse() {
-		this(RespCodeEnum.SUCCESS);
+		this(CodeEnum.SUCCESS);
 	}
 	
-	public CommonResponse(RespCodeEnum resp) {
+	public CommonResponse(CodeEnum resp) {
 		respCode = resp.getCode();
 		respMsg = resp.getMsg();		
 	}

@@ -19,7 +19,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.jtrips.tao.api.enums.LangEnum;
-import com.jtrips.tao.api.enums.RespCodeEnum;
+import com.jtrips.tao.api.enums.CodeEnum;
 import com.jtrips.tao.api.exception.KeywordNotFoundException;
 import com.jtrips.tao.api.req.UserLoginRequest;
 import com.jtrips.tao.api.res.CommonResponse;
@@ -61,7 +61,7 @@ public class UserController extends BaseController {
 		
 		UserLoginResponse response = new UserLoginResponse();	
 		
-		response.setResponse(RespCodeEnum.SUCCESS);
+		response.setResponse(CodeEnum.SUCCESS);
 		response.setUserId(UUID.randomUUID().toString());
 		response.setSession(UUID.randomUUID().toString());
 		response.translate(LangEnum.JP);
@@ -77,7 +77,7 @@ public class UserController extends BaseController {
       }	  
 	  
       HelloResponse response = new HelloResponse();
-      response.setResponse(RespCodeEnum.SUCCESS);
+      response.setResponse(CodeEnum.SUCCESS);
       response.add("serverApiVersion", apiVersion);
       response.add("scmRevision", "219");
       response.add("staticContextPath", staticPath);

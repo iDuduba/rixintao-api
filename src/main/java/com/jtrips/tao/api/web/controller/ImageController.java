@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jtrips.tao.api.enums.RespCodeEnum;
+import com.jtrips.tao.api.enums.CodeEnum;
 import com.jtrips.tao.api.exception.ImageUploadException;
 import com.jtrips.tao.api.res.CommonResponse;
 import com.jtrips.tao.api.res.ImageUploadResponse;
@@ -53,7 +53,7 @@ public class ImageController extends BaseController {
 		}
 
 		ImageUploadResponse response = new ImageUploadResponse();
-		response.setResponse(RespCodeEnum.SUCCESS);		
+		response.setResponse(CodeEnum.SUCCESS);		
 		response.setImageId(fid);
 		
         return response;
