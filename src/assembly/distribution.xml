@@ -27,27 +27,22 @@
 	      </includes>
 	      <fileMode>0755</fileMode>
 	    </fileSet>
+	    <fileSet>  
+	      <directory>${project.basedir}</directory>  
+	      <outputDirectory>/</outputDirectory>  
+	      <includes>  
+	        <include>README*</include>  
+	        <include>LICENSE*</include>  
+	        <include>NOTICE*</include>  
+	      </includes>  
+	    </fileSet>  	    
+	    <fileSet>  
+	      <directory>src/main/resources</directory>  
+	      <outputDirectory>config</outputDirectory>  
+	      <includes>  
+	        <include>application.yml</include>  
+	        <include>logback-*.xml</include>  
+	      </includes>  
+	    </fileSet>  	    
 	  </fileSets>
-  		<files>
-    		<file>
-      		<source>README.txt</source>
-      		<outputDirectory>/</outputDirectory>
-      		<filtered>true</filtered>
-    		</file>
-    		<file>
-      		<source>src/main/resources/application.yml</source>
-      		<outputDirectory>config</outputDirectory>
-      		<filtered>true</filtered>
-    		</file>    
-    		<file>
-      		<source>src/main/resources/logback-spring.xml</source>
-      		<outputDirectory>config</outputDirectory>
-      		<filtered>true</filtered>
-    		</file>    
-    		<file>
-      		<source>src/main/resources/logback-console.xml</source>
-      		<outputDirectory>config</outputDirectory>
-      		<filtered>true</filtered>
-    		</file>    
-  		</files>  
 </assembly>
