@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import com.google.common.base.Throwables;
+import com.jtrips.tao.api.enums.RespCodeEnum;
 import com.jtrips.tao.api.res.CommonResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +21,11 @@ public class ApiExceptionHandlerAdvice {
 	@ExceptionHandler(value = Exception.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
-	public CommonResponse exception(Exception exception, WebRequest request) {		
+	public CommonResponse exception(Exception exception, WebRequest request) {	
+	    log.error(Throwables.getRootCause(exception).getMessage());
 		CommonResponse error = new CommonResponse();
-		error.setRespCode("9999");
-		error.setRespMsg(Throwables.getRootCause(exception).getMessage());
+      	  error.setResponse(RespCodeEnum.FAIL);
+//      	  error.setRespMsg(Throwables.getRootCause(exception).getMessage());
 		return error;
 	}
 	

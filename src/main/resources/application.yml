@@ -1,12 +1,13 @@
 server:
     port: 8080
     context-path: /api    
-    
+  
 spring:
+  jackson.serialization-inclusion: NON_NULL
   http:      
     encoding.charset: UTF-8  
     encoding.enable: true  
-    encoding.force: true        
+    encoding.force: true 
   dubbo:  
     basePackages: com.jtrips.tao.api.web
     application:
@@ -35,6 +36,8 @@ multipart:
   
 # escape --> :, {, }, [, ], ,, &, *, #, ?, |, -, <, >, =, !, %, @, ` 
 api:
+  version: 1.2
+  static.path: http://tao.jtrips.com/images
   upload.path: /tmp/upload 
   secretKey: '[5)JL\">jTD$B+!mP`tM|eS^E-_#03gHa?v{nC<wq'
   skipSign: true

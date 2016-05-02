@@ -66,18 +66,6 @@
 			<version>18.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<version>2.5.3</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 		<!-- <dependency> <groupId>org.apache.zookeeper</groupId> <artifactId>zookeeper</artifactId> 
 			<version>3.4.8</version> <exclusions> <exclusion> <artifactId>slf4j-api</artifactId> 
 			<groupId>org.slf4j</groupId> </exclusion> <exclusion> <artifactId>slf4j-log4j12</artifactId> 
@@ -91,6 +79,10 @@
 		</dependency>
 	</dependencies>
 
+	<scm>
+		<connection>scm:git:git://github.com/iDuduba/rixintao-api.git</connection>
+	</scm>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -100,39 +92,106 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<excludes>
-						<exclude>**/*.yml</exclude>
-						<exclude>**/logback*.xml</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<appendAssemblyId>false</appendAssemblyId>
-					<filters>
-						<filter>src/assembly/filter.properties</filter>
-					</filters>
-					<descriptors>
-						<descriptor>src/assembly/distribution.xml</descriptor>
-					</descriptors>
-				</configuration>
-			</plugin>
-
-			<!-- <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
-				<dependencies> <dependency> <groupId>org.springframework</groupId> <artifactId>springloaded</artifactId> 
-				<version>1.2.5.RELEASE</version> </dependency> </dependencies> </plugin> -->
 		</plugins>
 	</build>
 
+	<profiles>
+    <profile>
+        <id>develop</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<dependencies>
+							<dependency>
+								<groupId>org.springframework</groupId>
+								<artifactId>springloaded</artifactId>
+								<version>1.2.5.RELEASE</version>
+							</dependency>
+						</dependencies>
+					</plugin>				
+				</plugins>				
+			</build>                
+    </profile>
+    <profile>
+      <id>product</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+						<includes>
+							<include>version.properties</include>
+							<include>**/*.xml</include>
+						</includes>
+					</resource>
+				</resources>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>buildnumber-maven-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<goals>
+									<goal>create</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<doCheck>false</doCheck>
+							<doUpdate>false</doUpdate>
+							<shortRevisionLength>5</shortRevisionLength>
+							<revisionOnScmFailure>12345</revisionOnScmFailure>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>2.6</version>
+						<configuration>
+							<archive>
+								<manifestEntries>
+									<SCM-Revision>${buildNumber}</SCM-Revision>
+								</manifestEntries>
+							</archive>
+							<excludes>
+								<exclude>**/application.yml</exclude>
+								<exclude>**/logback-*.xml</exclude>
+							</excludes>
+						</configuration>
+					</plugin>				
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.6</version>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<filters>
+								<filter>src/assembly/filter.properties</filter>
+							</filters>
+							<descriptors>
+								<descriptor>src/assembly/distribution.xml</descriptor>
+							</descriptors>
+						</configuration>
+						<executions>
+							<execution>
+								<id>make-assembly</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>						
+				</plugins>				
+			</build>        
+    </profile>
+	</profiles>
 
 </project>

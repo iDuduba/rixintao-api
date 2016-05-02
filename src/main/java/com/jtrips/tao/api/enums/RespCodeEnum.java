@@ -3,7 +3,7 @@ package com.jtrips.tao.api.enums;
 public enum RespCodeEnum {
 
 	SUCCESS("0000", "成功"),	
-	FAIL("9999","请求系统异常,请稍候再试."),
+	FAIL("9999","系统内部异常,请稍候再试."),
 	MD5_ERROR("9998","请求参数非法.");
 	
 	private String code;

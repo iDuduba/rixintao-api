@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
+import com.jtrips.tao.api.enums.LangEnum;
 import com.jtrips.tao.api.enums.RespCodeEnum;
 import com.jtrips.tao.api.exception.KeywordNotFoundException;
 import com.jtrips.tao.api.req.UserLoginRequest;
 import com.jtrips.tao.api.res.CommonResponse;
+import com.jtrips.tao.api.res.HelloResponse;
 import com.jtrips.tao.api.res.UserLoginResponse;
 import com.jtrips.tao.service.HelloService;
 
@@ -29,7 +31,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/users")
 public class UserController extends BaseController {
 	
-    
+  @Value("${api.version}")
+  private String apiVersion;  
+
+  @Value("${api.static.path}")
+  private String staticPath;  
+
 //  @Autowired
   @Reference(version = "1.0")
   private HelloService helloService;
@@ -53,21 +60,34 @@ public class UserController extends BaseController {
 		
 		response.setResponse(RespCodeEnum.SUCCESS);
 		response.setUserId(UUID.randomUUID().toString());
+		response.setSession(UUID.randomUUID().toString());
+		response.translate(LangEnum.JP);
 		return response;
 	}
 	
 	@RequestMapping(value = "/hello")
-	public String hello(@RequestParam(value="name",required=false,defaultValue="tom") String name) {
-	  return helloService.sayHello(name);
+	public HelloResponse hello(@RequestParam(value="name",required=false,defaultValue="tom") String name) {
+      if(name.compareTo("yyy") == 0) {
+        throw new KeywordNotFoundException(name);
+      }	  
+	  
+      HelloResponse response = new HelloResponse();
+      response.setResponse(RespCodeEnum.SUCCESS);
+      response.add("serverApiVersion", apiVersion);
+      response.add("scmRevision", "219");
+      response.add("staticContextPath", staticPath);
+      response.add("yes", helloService.sayHello(name));
+      response.add("warnning", "不要骚扰我！");
+      response.translate(LangEnum.CN);
+	  return response;
 	}
 	
 	@ExceptionHandler(KeywordNotFoundException.class)
 	@ResponseStatus(value=HttpStatus.BAD_REQUEST)
-    public CommonResponse myError(HttpServletRequest request, Exception exception) {
+    public CommonResponse myError(HttpServletRequest request, KeywordNotFoundException exception) {
 	  CommonResponse error = new CommonResponse();
         error.setRespCode(""+HttpStatus.BAD_REQUEST.value());
         error.setRespMsg(exception.getLocalizedMessage());
-//        error.setUrl(request.getRequestURL().append("/error/111").toString());
         return error;
     }
 }

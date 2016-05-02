@@ -21,29 +21,33 @@
 	      <directory>src/scripts</directory>
 	      <outputDirectory>bin</outputDirectory>
 	      <includes>
+	        <include>master</include>
 	        <include>*.sh</include>
 	        <include>*.bat</include>
 	      </includes>
 	      <fileMode>0755</fileMode>
 	    </fileSet>
-      <fileSet>
-        <directory>conf</directory>
-        <outputDirectory>conf</outputDirectory>
-        <includes>
-          <include>*/**</include>
-        </includes>
-      </fileSet>
-  </fileSets>
-  <files>
-    <file>
-      <source>README.txt</source>
-      <outputDirectory>/</outputDirectory>
-      <filtered>true</filtered>
-    </file>
-    <file>
-      <source>src/main/resources/application.yml</source>
-      <outputDirectory>/conf</outputDirectory>
-      <filtered>true</filtered>
-    </file>    
-  </files>  
+	  </fileSets>
+  		<files>
+    		<file>
+      		<source>README.txt</source>
+      		<outputDirectory>/</outputDirectory>
+      		<filtered>true</filtered>
+    		</file>
+    		<file>
+      		<source>src/main/resources/application.yml</source>
+      		<outputDirectory>config</outputDirectory>
+      		<filtered>true</filtered>
+    		</file>    
+    		<file>
+      		<source>src/main/resources/logback-spring.xml</source>
+      		<outputDirectory>config</outputDirectory>
+      		<filtered>true</filtered>
+    		</file>    
+    		<file>
+      		<source>src/main/resources/logback-console.xml</source>
+      		<outputDirectory>config</outputDirectory>
+      		<filtered>true</filtered>
+    		</file>    
+  		</files>  
 </assembly>
